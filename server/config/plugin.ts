@@ -13,4 +13,8 @@ plugin.cors = {
   package: 'egg-cors',
 }
 
+plugin.mysql = {
+  enable: true,
+  package: 'egg-mysql',
+}
 export default plugin;
