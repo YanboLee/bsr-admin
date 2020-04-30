@@ -3,5 +3,6 @@ import { Application } from 'egg';
 export default (app: Application) => {
   const { controller, router } = app;
   router.get('/', controller.home.index)
-    .post('/regist', controller.login.regist);
+    .get('/regist', controller.login.regist)
+    .get('/login', controller.login.login);
 };

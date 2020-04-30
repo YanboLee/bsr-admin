@@ -1,9 +1,10 @@
-import { Service } from 'egg';
+import * as app from 'egg';
+
 
 /**
  * Test Service
  */
-export default class Test extends Service {
+export default class Test extends app.Service {
 
   /**
    * sayHi to you
@@ -11,9 +12,5 @@ export default class Test extends Service {
    */
   public async sayHi(name: string) {
     return `hi, ${name}`;
-  }
-
-  public async upload(file: Blob) {
-    return file;
   }
 }
