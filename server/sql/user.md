@@ -70,12 +70,13 @@ CREATE TABLE t_member(
 )
 
 ## 审核列表
-CREATE TABLE t_verify_message(
+CREATE TABLE t_verify(
   id VARCHAR(255) NOT NULL PRIMARY KEY,  -- id 消息id
   message VARCHAR(255) NOT NULL ,   -- 消息内容
   type VARCHAR(255) NOT NULL ,  -- 类型
-  to VARCHAR(255) NOT NULL ,     -- 处理人
-  status INT NOT NULL DEFAULT 0,  -- 消息状态
+  postId VARCHAR(255) NOT NULL ,     -- 发起人
+  recieveId VARCHAR(255) NOT NULL ,     -- 处理人
+  state INT NOT NULL DEFAULT 0,  -- 消息状态
   create_time   timestamp NULL default CURRENT_TIMESTAMP, -- 创建时间默认值
   update_time   timestamp NULL default CURRENT_TIMESTAMP -- 修改时间默认值
 )
@@ -86,5 +87,5 @@ CREATE TABLE t_log(
   id VARCHAR(255) NOT NULL PRIMARY KEY,  -- id 消息id
   message VARCHAR(255) NOT NULL ,   -- 消息内容
   type VARCHAR(255) NOT NULL ,  -- 类型
-  create_time   timestamp NULL default CURRENT_TIMESTAMP, -- 创建时间默认值
+  create_time   timestamp NULL default CURRENT_TIMESTAMP  -- 创建时间默认值
 )

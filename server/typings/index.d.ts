@@ -10,7 +10,7 @@ declare module 'egg' {
 
     select(tableName: String, find: {}): Promise<Any>
 
-    update(tableName: String, find: {}): Promise<Any>
+    update(tableName: String, find: {}, find: {}): Promise<Any>
 
     delete(tableName: String, find: {}): Promise<Any>
   }
