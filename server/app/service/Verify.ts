@@ -32,7 +32,8 @@ export default class Verify extends app.Service {
         case 1:
           // 注册审核
           result = await this.app.mysql.update('t_user', {
-            status: 1
+            status: 1,
+            update_time: new Date()
           }, {
             where: {
               key_id: data.postId
@@ -43,7 +44,8 @@ export default class Verify extends app.Service {
 
       // 将该条信息在审核表置为无效
       await this.app.mysql.update('t_verify', {
-        state: 0
+        state: 0,
+        update_time: new Date()
       }, {
         where: {
           id: data.id
