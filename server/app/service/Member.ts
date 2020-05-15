@@ -44,4 +44,22 @@ export default class Member extends app.Service {
       data: ''
     }
   }
+  // 更新队员信息
+  public async updateMemberInfo(data) {
+    const result = await this.app.mysql.update('t_member', data, {});
+
+    const insertSuccess = result.affectedRows === 1;
+    
+    if (insertSuccess) return {
+      result: 1,
+      message: 'ok',
+      data: ''
+    }
+
+    return {
+      result: 0,
+      message: 'error',
+      data: ''
+    }
+  }
 }

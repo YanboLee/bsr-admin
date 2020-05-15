@@ -12,4 +12,10 @@ export default class MemberController extends Controller {
     const req = ctx.request.query;
     ctx.body = await ctx.service.member.insertMemberInfo(req);
   }
+
+  public async updateMember() {
+    const { ctx } = this;
+    const req = ctx.request.query;
+    ctx.body = await ctx.service.member.updateMemberInfo(req);
+  }
 }
