@@ -5,7 +5,7 @@ export default (app: Application) => {
   router.get('/', controller.home.index)
     // 登录
     .get('/regist', controller.login.regist)
-    .get('/login', controller.login.login)
+    .post('/login', controller.login.login)
     .get('/reset', controller.login.reset)
     // 审核
     .get('/verify/list', controller.verify.list)

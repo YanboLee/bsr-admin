@@ -41,7 +41,7 @@ export default class Login extends Service {
     const dbUser = await this.app.mysql.get('t_user', { mobile: mobile });
 
     if (dbUser && dbUser.password === password) return {
-      result: 1,
+      result: 20000,
       message: 'ok',
       data: dbUser
     }

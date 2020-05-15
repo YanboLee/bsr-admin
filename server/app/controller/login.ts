@@ -12,7 +12,7 @@ export default class LoginController extends Controller {
   // 登录
   public async login() {
     const { ctx } = this;
-    const req = ctx.request.query
+    const req = ctx.request.body
     ctx.body = await ctx.service.login.login(req);
   }
 
