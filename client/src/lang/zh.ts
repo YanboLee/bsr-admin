@@ -77,6 +77,11 @@ export default {
   login: {
     title: '系统登录',
     logIn: '登录',
+    mobile: '电话号',
+    nickName: '昵称',
+    email: '邮箱',
+    regist: '注册',
+    submit: '提交',
     username: '账号',
     password: '密码',
     any: '随便填',

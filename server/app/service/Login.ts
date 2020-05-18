@@ -1,5 +1,5 @@
 import { Service }from 'egg';
-
+const uuid = require('node-uuid');
 
 /**
  * Login Service
@@ -11,22 +11,36 @@ export default class Login extends Service {
    * @param name - your name
    */
   public async regist(data) {
+    const queryInDb = await this.app.mysql.select('t_user', {where: { mobile: data.mobile }});
+    if (queryInDb.length > 0) {
+      return {
+        result: 0,
+        message: '该手机号已注册',
+        data: ''
+      }
+    }
     // status = 10  需要审核
     data.status = 10;
+    data.role = 1;
+    let key_id =  uuid.v1();
+    data.key_id = key_id;
+
     const result = await this.app.mysql.insert('t_user', data);
     const verifyMessage = {
-      id: 1,
+      id: uuid.v1(),
       message: '注册审核',
       type: '1',
       recieveId: 1,
+      postId: key_id,
       state: 1
     }
-    await this.app.mysql.insert('t_verify_message', verifyMessage);
+
+    await this.app.mysql.insert('t_verify', verifyMessage);
     const insertSuccess = result.affectedRows === 1;
     
     if (insertSuccess) return {
-      result: 1,
-      message: 'ok',
+      code: 20000,
+      message: '注册成功，等待管理员审核',
       data: ''
     }
 
@@ -37,13 +51,29 @@ export default class Login extends Service {
     }
   }
   public async login(data) {
-    const { mobile, password } = data;
-    const dbUser = await this.app.mysql.get('t_user', { mobile: mobile });
-
-    if (dbUser && dbUser.password === password) return {
-      result: 20000,
-      message: 'ok',
-      data: dbUser
+    const { username, password } = data;
+    const dbUser = await this.app.mysql.get('t_user', { mobile: username });
+    if (!dbUser.mobile || !dbUser.status) {
+      return {
+        result: 0,
+        message: '用户名输入有误',
+        data: ''
+      }
+    }
+    if (dbUser && dbUser.status !== 1) {
+      return {
+        result: 0,
+        message: '用户暂无权限登录，请联系管理员',
+        data: ''
+      }
+    }
+    if (dbUser && dbUser.password === password) {
+      dbUser.accessToken = username + '-token'
+      return {
+        code: 20000,
+        message: 'ok',
+        data: dbUser
+      }
     }
 
     return {

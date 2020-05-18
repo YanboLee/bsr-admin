@@ -1,5 +1,12 @@
 import request from '@/utils/request'
 
+export const regist = (data: any) =>
+  request({
+    url: '/regist',
+    method: 'post',
+    data
+  })
+
 export const getUsers = (params: any) =>
   request({
     url: '/users',

@@ -1,4 +1,5 @@
 <template>
+  <div style="height: 100%;">
   <div class="login-container">
     <el-form
       ref="loginForm"
@@ -65,41 +66,27 @@
       <el-button
         :loading="loading"
         type="primary"
-        style="width:100%; margin-bottom:30px;"
+        style="width:60%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
         {{ $t('login.logIn') }}
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : admin </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }} </span>
-        </div>
-        <div class="tips">
-          <span>{{ $t('login.username') }} : editor </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }} </span>
-        </div>
-
-        <el-button
-          class="thirdparty-button"
-          type="primary"
-          @click="showDialog=true"
-        >
-          {{ $t('login.thirdparty') }}
-        </el-button>
-      </div>
+      <el-button
+        type="primary"
+        style="width:30%;"
+        @click="showDialog=true"
+      >
+        {{ $t('login.regist')}}
+      </el-button>
     </el-form>
-
+  </div>
     <el-dialog
-      :title="$t('login.thirdparty')"
+      :title="$t('login.regist')"
       :visible.sync="showDialog"
     >
-      {{ $t('login.thirdpartyTips') }}
-      <br>
-      <br>
-      <br>
-      <social-sign />
+      <regist-dialog 
+         @submitRegist='doSubmitRegist'
+      />
     </el-dialog>
   </div>
 </template>
@@ -112,13 +99,13 @@ import { Form as ElForm, Input } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 import { isValidUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect/index.vue'
-import SocialSign from './components/SocialSignin.vue'
+import RegistDialog from './components/RegistDialog.vue'
 
 @Component({
   name: 'Login',
   components: {
     LangSelect,
-    SocialSign
+    RegistDialog
   }
 })
 export default class extends Vue {
@@ -131,16 +118,27 @@ export default class extends Vue {
   }
 
   private validatePassword = (rule: any, value: string, callback: Function) => {
-    if (value.length < 6) {
-      callback(new Error('The password can not be less than 6 digits'))
-    } else {
+    // if (value.length < 6) {
+    //   callback(new Error('The password can not be less than 6 digits'))
+    // } else {
       callback()
-    }
+    // }
+  }
+
+  private doSubmitRegist = async (user: any) => {
+    this.loading = true
+    await UserModule.Regist(user)
+    this.showDialog = false
+    this.loading = false
+    this.$message({
+      type: 'success',
+      message: '注册成功，等待管理员审核'
+    })
   }
 
   private loginForm = {
-    username: 'admin',
-    password: '111111'
+    username: '888888',
+    password: '888888'
   }
 
   private loginRules = {
@@ -193,16 +191,17 @@ export default class extends Vue {
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
-        this.loading = true
+        // this.loading = true
         await UserModule.Login(this.loginForm)
         this.$router.push({
           path: this.redirect || '/',
           query: this.otherQuery
         })
+        console.log(1);
         // Just to simulate the time of the request
-        setTimeout(() => {
-          this.loading = false
-        }, 0.5 * 1000)
+        // setTimeout(() => {
+        //   this.loading = false
+        // }, 0.5 * 1000)
       } else {
         return false
       }

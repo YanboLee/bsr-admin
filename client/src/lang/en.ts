@@ -75,6 +75,11 @@ export default {
   login: {
     title: 'Login Form',
     logIn: 'Login',
+    regist: 'Regist',
+    mobile: 'mobile',
+    nickName: 'nick name',
+    email: 'email',
+    submit: 'Submit',
     username: 'Username',
     password: 'Password',
     any: 'any',

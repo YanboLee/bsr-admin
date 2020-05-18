@@ -5,7 +5,7 @@ export default class LoginController extends Controller {
   // 注册
   public async regist() {
     const { ctx } = this;
-    const req = ctx.request.query;
+    const req = ctx.request.body;
     ctx.body = await ctx.service.login.regist(req);
   }
 

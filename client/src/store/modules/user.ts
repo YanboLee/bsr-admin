@@ -1,5 +1,5 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, logout, getUserInfo } from '@/api/users'
+import { login, logout, getUserInfo, regist } from '@/api/users'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
 import { PermissionModule } from './permission'
@@ -64,6 +64,17 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
+  public async Regist(userInfo: {
+    mobile: string,
+    password: string,
+    nick_name: string,
+    email: string
+  }) {
+    const res = await regist(userInfo)
+    console.log(res);
+  }
+
+  @Action
   public ResetToken() {
     removeToken()
     this.SET_TOKEN('')
@@ -72,10 +83,18 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async GetUserInfo() {
-    if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
+
+    // if (this.token === '') {
+    //   throw Error('GetUserInfo: token is undefined!')
+    // }
+    let { data } = await getUserInfo({ /* Your params here */ })
+    data.user = {
+      roles: '[admin]',
+      name: 'leeeee_text',
+      avatar: 'wwwww',
+      introduction: 'data for text',
+      email : 'aaaaa'
     }
-    const { data } = await getUserInfo({ /* Your params here */ })
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
