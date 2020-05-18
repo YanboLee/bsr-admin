@@ -239,79 +239,9 @@
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
+      width ='80%'
     >
-      <el-form
-        ref="dataForm"
-        :rules="rules"
-        :model="tempArticleData"
-        label-position="left"
-        label-width="100px"
-        style="width: 400px; margin-left:50px;"
-      >
-        <el-form-item
-          :label="$t('table.type')"
-          prop="type"
-        >
-          <el-select
-            v-model="tempArticleData.type"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              v-for="item in calendarTypeOptions"
-              :key="item.key"
-              :label="item.displayName"
-              :value="item.key"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="$t('table.date')"
-          prop="timestamp"
-        >
-          <el-date-picker
-            v-model="tempArticleData.timestamp"
-            type="datetime"
-            placeholder="Please pick a date"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('table.title')"
-          prop="title"
-        >
-          <el-input v-model="tempArticleData.title" />
-        </el-form-item>
-        <el-form-item :label="$t('table.status')">
-          <el-select
-            v-model="tempArticleData.status"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              v-for="item in statusOptions"
-              :key="item"
-              :label="item"
-              :value="item"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('table.importance')">
-          <el-rate
-            v-model="tempArticleData.importance"
-            :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-            :max="3"
-            style="margin-top:8px;"
-          />
-        </el-form-item>
-        <el-form-item :label="$t('table.remark')">
-          <el-input
-            v-model="tempArticleData.abstractContent"
-            :autosize="{minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="Please input"
-          />
-        </el-form-item>
-      </el-form>
+      <create-member />
       <div
         slot="footer"
         class="dialog-footer"
@@ -370,6 +300,7 @@ import { IArticleData } from '@/api/types'
 import { exportJson2Excel } from '@/utils/excel'
 import { formatJson } from '@/utils'
 import Pagination from '@/components/Pagination/index.vue'
+import createMember from './createMember.vue'
 
 const calendarTypeOptions = [
   { key: 'CN', displayName: 'China' },
@@ -387,7 +318,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc: { [key: string]: s
 @Component({
   name: 'ComplexTable',
   components: {
-    Pagination
+    Pagination,
+    createMember
   },
   filters: {
     typeFilter: (type: string) => {
@@ -493,9 +425,9 @@ export default class extends Vue {
     this.resetTempArticleData()
     this.dialogStatus = 'create'
     this.dialogFormVisible = true
-    this.$nextTick(() => {
-      (this.$refs.dataForm as Form).clearValidate()
-    })
+    // this.$nextTick(() => {
+    //   (this.$refs.dataForm as Form).clearValidate()
+    // })
   }
 
   private createData() {
@@ -522,9 +454,9 @@ export default class extends Vue {
     this.tempArticleData.timestamp = +new Date(this.tempArticleData.timestamp)
     this.dialogStatus = 'update'
     this.dialogFormVisible = true
-    this.$nextTick(() => {
-      (this.$refs.dataForm as Form).clearValidate()
-    })
+    // this.$nextTick(() => {
+    //   (this.$refs.dataForm as Form).clearValidate()
+    // })
   }
 
   private updateData() {

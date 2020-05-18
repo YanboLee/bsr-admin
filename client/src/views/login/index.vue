@@ -197,7 +197,6 @@ export default class extends Vue {
           path: this.redirect || '/',
           query: this.otherQuery
         })
-        console.log(1);
         // Just to simulate the time of the request
         // setTimeout(() => {
         //   this.loading = false
