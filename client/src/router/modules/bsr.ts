@@ -27,7 +27,16 @@ const bsrRouter: RouteConfig = {
       meta: {
         title: 'member',
         noCache: true
-      }
+      },
+    },
+    {
+      path: 'member/create',
+      component: () => import(/* webpackChunkName: "member" */ '@/views/bsr/member/create.vue'),
+      name: 'createBsrMember',
+      meta: {
+        title: 'create',
+        noCache: true
+      },
     },
     {
       path: 'equip',

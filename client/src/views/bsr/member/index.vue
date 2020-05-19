@@ -422,12 +422,15 @@ export default class extends Vue {
   }
 
   private handleCreate() {
-    this.resetTempArticleData()
-    this.dialogStatus = 'create'
-    this.dialogFormVisible = true
+    // this.resetTempArticleData()
+    // this.dialogStatus = 'create'
+    // this.dialogFormVisible = true
     // this.$nextTick(() => {
     //   (this.$refs.dataForm as Form).clearValidate()
     // })
+    this.$router.push({
+      path: '/bsr/member/create'
+    })
   }
 
   private createData() {
