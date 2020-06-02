@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
 import routes, { RouteInterface } from '@/router/index';
-import PageLayout from '@/page/layout/index';
 
 import * as serviceWorker from '@/serviceWorker';
 
@@ -17,16 +16,15 @@ const RouteWithSubRoutes = (route: RouteInterface, index: number) => (
     )}
   />
 );
+
 class Root extends React.Component {
   render() {
     return (
-      <PageLayout>
-        <Router>
-          <Switch>
-            {routes.map((route: RouteInterface, i: number) => RouteWithSubRoutes(route, i))}
-          </Switch>
-        </Router>
-      </PageLayout>
+      <Router>
+        <Switch>
+          {routes.map((route: RouteInterface, i: number) => RouteWithSubRoutes(route, i))}
+        </Switch>
+      </Router>
     );
   }
 }

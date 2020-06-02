@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import PageLayout from '@/page/layout/index';
 
 import { Button } from 'antd';
 import { Line } from '@ant-design/charts';
@@ -43,10 +44,12 @@ const Page: FC = () => {
     yField: 'value',
   };
   return (
-    <div>
-      <Button type="primary" onClick={getTest}>Button</Button>
-      <Line {...config} />
-    </div>
+    <PageLayout>
+      <div>
+        <Button type="primary" onClick={getTest}>Button</Button>
+        <Line {...config} />
+      </div>
+    </PageLayout>
   );
 };
 export default Page;

@@ -1,5 +1,6 @@
 import List from '@/page/list';
 import Chart from '@/page/chart';
+import Login from '@/page/login';
 
 const routes = [
   {
@@ -9,6 +10,10 @@ const routes = [
   {
     path: '/chart',
     component: Chart
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ];
 

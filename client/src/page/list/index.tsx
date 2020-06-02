@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useState } from 'react';
+import PageLayout from '@/page/layout/index';
 import {
   Button, Table, Tag, Space
 } from 'antd';
@@ -74,11 +75,12 @@ const App: FC = () => {
     }
   };
   return (
-    <div>
-      <span>test</span>
-      <Button type="primary" onClick={getTest}>Button</Button>
-      <Table columns={columns} dataSource={data.list} />
-    </div>
+    <PageLayout>
+      <div>
+        <Button type="primary" onClick={getTest}>Button</Button>
+        <Table columns={columns} dataSource={data.list} />
+      </div>
+    </PageLayout>
   );
 };
 
