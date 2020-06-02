@@ -1,4 +1,4 @@
-dist/*.js
-src/assets
-tests/unit/coverage
-public/**/*.js
+config/**/*.js
+scripts/**/*.js
+src/serviceWorker.ts
+src/setupTest.ts
