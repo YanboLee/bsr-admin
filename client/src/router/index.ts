@@ -1,11 +1,12 @@
-import List from '@/page/list';
+import Member from '@/page/member';
 import Chart from '@/page/chart';
 import Login from '@/page/login';
+import Home from '@/page/home';
 
 const routes = [
   {
-    path: '/list',
-    component: List
+    path: '/member',
+    component: Member
   },
   {
     path: '/chart',
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/home',
+    component: Home
   }
 ];
 

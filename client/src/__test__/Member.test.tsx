@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import List from '../page/list';
+import List from '../page/member';
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

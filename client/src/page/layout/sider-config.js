@@ -1,7 +1,12 @@
 export default [
   {
-    path: '/list',
-    name: 'List',
+    path: '/home',
+    name: 'Home',
+    icon: ''
+  },
+  {
+    path: '/member',
+    name: 'member',
     icon: ''
   },
   {

@@ -3,7 +3,7 @@ import PageLayout from '@/page/layout/index';
 
 import { Button } from 'antd';
 import { Line } from '@ant-design/charts';
-import { getChartTest } from '@/lib/apis';
+// import { getChartTest } from '@/lib/apis';
 
 interface pageState {
   list: any
@@ -23,16 +23,16 @@ const Page: FC = () => {
       { year: '1999', value: 0 },
     ],
   };
-  const [data, setData] = useState(defaultData);
+  const [data] = useState(defaultData);
   const getTest = async () => {
-    try {
-      const res = await getChartTest();
-      setData({
-        list: res.data.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const res = await getChartTest();
+    //   setData({
+    //     list: res.data.data
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   const config = {
     data: data.list,

@@ -1,9 +1,9 @@
 import apiClient from './request';
 
-export const getListTest = () => (
-  apiClient.get('/v1/list')
+export const regist = (param) => (
+  apiClient.post('/regist', param)
 );
 
-export const getChartTest = () => (
-  apiClient.get('/v1/chart')
+export const login = (param) => (
+  apiClient.post('/login', param)
 );

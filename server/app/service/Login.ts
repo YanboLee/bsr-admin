@@ -39,7 +39,7 @@ export default class Login extends Service {
     const insertSuccess = result.affectedRows === 1;
     
     if (insertSuccess) return {
-      code: 20000,
+      result: 20000,
       message: '注册成功，等待管理员审核',
       data: ''
     }
@@ -70,7 +70,7 @@ export default class Login extends Service {
     if (dbUser && dbUser.password === password) {
       dbUser.accessToken = username + '-token'
       return {
-        code: 20000,
+        result: 20000,
         message: 'ok',
         data: dbUser
       }

@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useState } from 'react';
-import PageLayout from '@/page/layout/index';
 import {
   Button, Table, Tag, Space
 } from 'antd';
-import { getListTest } from '@/lib/apis';
+// import { getListTest } from '@/lib/apis';
+import { useHistory } from 'react-router-dom';
 
 const columns = [
   {
@@ -60,27 +60,19 @@ interface pageState {
 }
 
 const App: FC = () => {
+  const history = useHistory();
   const defaultData: pageState = {
     list: [],
   };
-  const [data, setData] = useState(defaultData);
-  const getTest = async () => {
-    try {
-      const res = await getListTest();
-      setData({
-        list: res.data.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const [data] = useState(defaultData);
+  const create = () => {
+    history.push('/member/create');
   };
   return (
-    <PageLayout>
-      <div>
-        <Button type="primary" onClick={getTest}>Button</Button>
-        <Table columns={columns} dataSource={data.list} />
-      </div>
-    </PageLayout>
+    <div>
+      <Button type="primary" onClick={create}>create</Button>
+      <Table columns={columns} dataSource={data.list} />
+    </div>
   );
 };
 

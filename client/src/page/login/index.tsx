@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
-  Form, Input, Button, Checkbox, Modal
+  Form, Input, Button, Modal, message
 } from 'antd';
 import '@/style/login.scss';
+import { regist, login } from '@/lib/apis';
 
 const layout = {
   labelCol: { span: 8 },
@@ -12,19 +14,34 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
+interface IRegistData {
+  [index: string]: any;
+}
+
 const App: FC = () => {
-  const [state, setState] = useState({
-    visible: false
-  });
+  const history = useHistory();
+  const defaultRegistData: IRegistData = {
+    password: '',
+    mobile: '',
+    email: '',
+    nick_name: ''
+  };
+  const [loginForm] = Form.useForm();
+  const [visible, setVisible] = useState(false);
+  const [registData, setRegistData] = useState(defaultRegistData);
 
   const doRegist = () => {
-    setState({
-      visible: true
-    });
+    setVisible(true);
   };
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const onFinish = async (values: any) => {
+    try {
+      const res = await login(values);
+      message.info(res.data.message);
+      history.push('/home');
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -32,14 +49,24 @@ const App: FC = () => {
   };
 
   const handleRegistCancel = () => {
-    setState({
-      visible: false
-    });
+    setVisible(false);
   };
 
-  const handleRegistOk = () => {
-    setState({
-      visible: false
+  const handleRegistOk = async () => {
+    try {
+      const res = await regist(registData);
+      message.info(res.data.message);
+      console.log(res);
+    } catch (error) {
+      message.error(error.message);
+    }
+    setVisible(false);
+  };
+
+  const handleRegistDataChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
+    setRegistData({
+      ...registData,
+      [name]: e.target.value
     });
   };
 
@@ -47,8 +74,8 @@ const App: FC = () => {
     <div className="login-panel">
       <Form
         {...layout}
+        form={loginForm}
         name="basic"
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -68,10 +95,6 @@ const App: FC = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Submit
@@ -83,31 +106,38 @@ const App: FC = () => {
       </Form>
       <Modal
         title="Regist"
-        visible={state.visible}
+        visible={visible}
         onOk={handleRegistOk}
         onCancel={handleRegistCancel}
       >
-        <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 14 }}
-          layout="horizontal"
-        >
-          <Form.Item label="用户名">
-            <Input />
-          </Form.Item>
-          <Form.Item label="密码">
-            <Input />
-          </Form.Item>
-          <Form.Item label="手机号">
-            <Input />
-          </Form.Item>
-          <Form.Item label="邮箱">
-            <Input />
-          </Form.Item>
-          <Form.Item label="昵称">
-            <Input />
-          </Form.Item>
-        </Form>
+        <div>
+          <span>手机号</span>
+          <Input
+            value={registData.mobile}
+            onChange={(e) => handleRegistDataChange(e, 'mobile')}
+          />
+        </div>
+        <div>
+          <span>密码</span>
+          <Input
+            value={registData.password}
+            onChange={(e) => handleRegistDataChange(e, 'password')}
+          />
+        </div>
+        <div>
+          <span>邮箱</span>
+          <Input
+            value={registData.email}
+            onChange={(e) => handleRegistDataChange(e, 'email')}
+          />
+        </div>
+        <div>
+          <span>昵称</span>
+          <Input
+            value={registData.nick_name}
+            onChange={(e) => handleRegistDataChange(e, 'nick_name')}
+          />
+        </div>
       </Modal>
     </div>
   );
