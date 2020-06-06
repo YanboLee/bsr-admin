@@ -12,5 +12,6 @@ export default (app: Application) => {
     .get('/verify/list', controller.verify.list)
     .get('/verify/verify', controller.verify.verify)
     // 队员信息
-    .get('/member/getMember', controller.member.getMember)
+    .get('/member/list', controller.member.list)
+    .post('/member/create', controller.member.insert)
 };

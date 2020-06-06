@@ -1,28 +1,15 @@
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
-  Input, Button
+  Input, Button, message
 } from 'antd';
 import '@/style/member.scss';
+import { defaultMemberData } from '@/model/member';
+import { memberCreate } from '@/lib/apis';
 import formConfig from './createFormConfig';
 
-interface IMemberData {
-  [index: string]: any;
-}
-
-const defaultMemberData: IMemberData = {
-  real_name: '',
-  gender: '',
-  region: '',
-  nation: '',
-  height: '',
-  weight: '',
-  blood_type: '',
-  politic: '',
-
-};
-
-
 const App: FC = () => {
+  const history = useHistory();
   const [data, setData] = useState(defaultMemberData);
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
     setData({
@@ -30,16 +17,29 @@ const App: FC = () => {
       [name]: e.target.value
     });
   };
+  const submitData = async () => {
+    try {
+      const param = Object.assign(data, { mobile: '3' });
+      const res = await memberCreate(param);
+      if (res.data.result === 1) {
+        message.info(res.data.message);
+        history.push('/member');
+      }
+      console.log(res);
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   return (
     <div className="member-create-panel">
       {
         formConfig.map((item: any) => {
           let ele;
           if (item.type === 'title') {
-            ele = <div className="title">{item.label}</div>;
+            ele = <div key={item.label} className="title">{item.label}</div>;
           } else {
             ele = (
-              <div className="input-filed">
+              <div className="input-filed" key={item.label}>
                 <span>{item.label}</span>
                 <Input
                   value={data[item.id]}
@@ -51,7 +51,7 @@ const App: FC = () => {
           return ele;
         })
       }
-      <Button>submit</Button>
+      <Button onClick={submitData}>submit</Button>
     </div>
   );
 };

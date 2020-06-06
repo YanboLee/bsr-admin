@@ -7,3 +7,11 @@ export const regist = (param) => (
 export const login = (param) => (
   apiClient.post('/login', param)
 );
+
+export const memberList = (param) => (
+  apiClient.get('/member/list', param)
+);
+
+export const memberCreate = (param) => (
+  apiClient.post('/member/create', param)
+);

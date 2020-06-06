@@ -28,8 +28,9 @@ export default class Member extends app.Service {
    * 获取队员信息
    */
   public async insertMemberInfo(data) {
+    data.status = 1;
+    data.team_duty = 1;
     const result = await this.app.mysql.insert('t_member', data);
-
     const insertSuccess = result.affectedRows === 1;
     
     if (insertSuccess) return {

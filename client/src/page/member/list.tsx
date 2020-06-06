@@ -1,47 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import {
-  Button, Table, Tag, Space
+  Button, Table, Space, message
 } from 'antd';
-// import { getListTest } from '@/lib/apis';
 import { useHistory } from 'react-router-dom';
+import { memberList } from '@/lib/apis';
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text: string) => <a>{text}</a>,
+    title: '编号',
+    dataIndex: 'work_no',
+    key: 'work_no',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '真实姓名',
+    dataIndex: 'real_name',
+    key: 'real_name'
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags: any[]) => (
-      <>
-        {tags.map((tag: string) => {
-          let color = tag && tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: '职务',
+    dataIndex: 'team_duty',
+    key: 'team_duty',
   },
   {
     title: 'Action',
@@ -64,14 +43,28 @@ const App: FC = () => {
   const defaultData: pageState = {
     list: [],
   };
-  const [data] = useState(defaultData);
+  const [data, setData] = useState(defaultData);
+
   const create = () => {
     history.push('/member/create');
   };
+
+  const getList = async (values?: any) => {
+    try {
+      const res = await memberList(values);
+      setData({ list: res.data.data });
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+
   return (
     <div>
       <Button type="primary" onClick={create}>create</Button>
-      <Table columns={columns} dataSource={data.list} />
+      <Table columns={columns} dataSource={data.list} rowKey="mobile" />
     </div>
   );
 };
