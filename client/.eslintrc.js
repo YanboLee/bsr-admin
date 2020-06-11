@@ -8,7 +8,7 @@ module.exports = {
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
     },
     "ecmaVersion": 2017,
     "sourceType": "module"
@@ -44,12 +44,29 @@ module.exports = {
     "react/prefer-stateless-function": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-filename-extension": [2, {
-      extensions: ['.js', '.jsx', '.tsx']
+      extensions: ['.js', '.jsx', '.tsx', '.ts']
     }],
     "jsx-a11y/anchor-is-valid": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     // VSCode 的 ESLint 扩展插件暂时无法正确修复这条规则带来的错误
     "react/jsx-one-expression-per-line": 0,
+     "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx", ".js"]
+      }
+    }
   }
 };

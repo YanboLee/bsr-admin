@@ -1,10 +1,24 @@
 import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+// import { useHistory } from 'react-router-dom';
+import { setlogin } from '@/store/login/action';
+import { StoreState } from '@/store/types';
 import {
   Form, Input, Button, Modal, message
 } from 'antd';
 import '@/style/login.scss';
 import { regist, login } from '@/lib/apis';
+
+interface IRegistData {
+  [index: string]: any;
+}
+
+export interface ILoginProps {
+  loginUser: Object,
+  doSetlogin: (data: IRegistData) => void,
+  doClearlogin: () => void
+}
 
 const layout = {
   labelCol: { span: 8 },
@@ -14,12 +28,8 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-interface IRegistData {
-  [index: string]: any;
-}
-
-const App: FC = () => {
-  const history = useHistory();
+const App: FC<ILoginProps> = (props) => {
+  // const history = useHistory();
   const defaultRegistData: IRegistData = {
     password: '',
     mobile: '',
@@ -30,6 +40,10 @@ const App: FC = () => {
   const [visible, setVisible] = useState(false);
   const [registData, setRegistData] = useState(defaultRegistData);
 
+  const { loginUser, doSetlogin } = props;
+  console.log(props);
+  console.log(loginUser);
+
   const doRegist = () => {
     setVisible(true);
   };
@@ -38,7 +52,8 @@ const App: FC = () => {
     try {
       const res = await login(values);
       message.info(res.data.message);
-      history.push('/home');
+      doSetlogin(res.data.data);
+      // history.push('/home');
     } catch (error) {
       message.error(error.message);
     }
@@ -69,7 +84,6 @@ const App: FC = () => {
       [name]: e.target.value
     });
   };
-
   return (
     <div className="login-panel">
       <Form
@@ -143,4 +157,12 @@ const App: FC = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state: StoreState): { loginUser: Object } => ({
+  loginUser: state
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  doSetlogin: (data: Object) => dispatch(setlogin(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

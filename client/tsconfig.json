@@ -24,6 +24,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "src/__test__"
+    "src", "src/__test__", "src/*"
   ]
 }

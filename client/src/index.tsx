@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router, Route, Switch
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import routes, { RouteInterface } from '@/router/index';
-
+import reducer from '@/store';
 import * as serviceWorker from '@/serviceWorker';
+
+const store = createStore(reducer, composeWithDevTools());
 
 const RouteWithSubRoutes = (route: RouteInterface, index: number) => (
   <Route
@@ -29,7 +34,12 @@ class Root extends React.Component {
   }
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Root />
+  </Provider>,
+  document.getElementById('root')
+);
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

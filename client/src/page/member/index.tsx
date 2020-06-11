@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import PageLayout from '@/page/layout/index';
 import { Route, Switch } from 'react-router-dom';
 
-import CreateMember from '@/page/member/create.tsx';
-import ListMember from '@/page/member/list.tsx';
+import CreateMember from '@/page/member/create';
+import ListMember from '@/page/member/list';
 
 const Member: FC = () => (
   <PageLayout>
