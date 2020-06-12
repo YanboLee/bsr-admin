@@ -1,4 +1,7 @@
 import React, { FC, useState } from 'react';
+import { connect } from 'react-redux';
+import { ILoginUser } from '@/model/loginUser';
+import { StoreState } from '@/store/types';
 import { useHistory } from 'react-router-dom';
 import {
   Input, Button, message
@@ -8,7 +11,12 @@ import { defaultMemberData } from '@/model/member';
 import { memberCreate } from '@/lib/apis';
 import formConfig from './createFormConfig';
 
-const App: FC = () => {
+export interface ILoginProps {
+  loginUser: ILoginUser,
+}
+
+const App: FC<ILoginProps> = () => {
+  // const { loginUser } = props;
   const history = useHistory();
   const [data, setData] = useState(defaultMemberData);
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
@@ -19,13 +27,11 @@ const App: FC = () => {
   };
   const submitData = async () => {
     try {
-      const param = Object.assign(data, { mobile: '3' });
-      const res = await memberCreate(param);
+      const res = await memberCreate(data);
       if (res.data.result === 1) {
         message.info(res.data.message);
         history.push('/member');
       }
-      console.log(res);
     } catch (error) {
       message.error(error.message);
     }
@@ -56,4 +62,8 @@ const App: FC = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state: StoreState): { loginUser: ILoginUser } => ({
+  loginUser: state.loginUser
+});
+
+export default connect(mapStateToProps)(App);

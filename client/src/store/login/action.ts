@@ -1,3 +1,4 @@
+import { ILoginUser } from '@/model/loginUser';
 import {
   SETLOGINUSER,
   SET_LOGINUSER,
@@ -7,7 +8,7 @@ import {
 
 export interface SETLOGINUSERAction {
   type: SET_LOGINUSER;
-  data: Object
+  data: ILoginUser
 }
 
 export interface CLEARLOGINUSERAction {
@@ -16,7 +17,7 @@ export interface CLEARLOGINUSERAction {
 
 export type LoginAction = SETLOGINUSERAction | CLEARLOGINUSERAction;
 
-export const setlogin = (data: Object): SETLOGINUSERAction => ({
+export const setlogin = (data: ILoginUser): SETLOGINUSERAction => ({
   type: SETLOGINUSER,
   data,
 });

@@ -1,4 +1,8 @@
 import React, { FC } from 'react';
+import { connect } from 'react-redux';
+import { ILoginUser } from '@/model/loginUser';
+import { StoreState } from '@/store/types';
+
 import {
   Layout, Avatar, Menu, Dropdown, PageHeader
 } from 'antd';
@@ -7,13 +11,17 @@ import {
   Link
 } from 'react-router-dom';
 
+export interface ILoginProps {
+  loginUser: ILoginUser,
+}
+
 const headPicUrl = `https://crucio-image-beta.oss-cn-bei
 jing.aliyuncs.com/zxcdveqZVGwemuaBCfVeJQ?x-oss-process=im
 age/resize,w_120/format,jpeg`;
 
-const HeaderLayout: FC = () => {
+const HeaderLayout: FC<ILoginProps> = (props) => {
   const { Header } = Layout;
-
+  const { loginUser } = props;
   return (
     <Router>
       <Header className="site-layout-background" style={{ padding: 0 }}>
@@ -38,7 +46,7 @@ const HeaderLayout: FC = () => {
         >
           <div className="header-avatar">
             <Avatar src={headPicUrl} />
-            <span>昵称</span>
+            <span>{loginUser.nick_name}</span>
           </div>
         </Dropdown>
       </Header>
@@ -46,4 +54,8 @@ const HeaderLayout: FC = () => {
   );
 };
 
-export default HeaderLayout;
+const mapStateToProps = (state: StoreState): { loginUser: ILoginUser } => ({
+  loginUser: state.loginUser
+});
+
+export default connect(mapStateToProps)(HeaderLayout);

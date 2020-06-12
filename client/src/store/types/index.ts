@@ -1,6 +1,4 @@
+import { ILoginUser } from '@/model/loginUser';
 export type StoreState = {
-  loginUser: {
-    mobile: String,
-    nick_name: String
-  }
+  loginUser: ILoginUser
 };

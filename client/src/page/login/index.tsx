@@ -1,9 +1,11 @@
 import React, { FC, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { setlogin } from '@/store/login/action';
+import { ILoginUser } from '@/model/loginUser';
 import { StoreState } from '@/store/types';
+
 import {
   Form, Input, Button, Modal, message
 } from 'antd';
@@ -15,10 +17,16 @@ interface IRegistData {
 }
 
 export interface ILoginProps {
-  loginUser: Object,
-  doSetlogin: (data: IRegistData) => void,
+  loginUser: ILoginUser,
+  doSetlogin: (data: ILoginUser) => void,
   doClearlogin: () => void
 }
+const defaultRegistData: IRegistData = {
+  password: '',
+  mobile: '',
+  email: '',
+  nick_name: ''
+};
 
 const layout = {
   labelCol: { span: 8 },
@@ -29,20 +37,12 @@ const tailLayout = {
 };
 
 const App: FC<ILoginProps> = (props) => {
-  // const history = useHistory();
-  const defaultRegistData: IRegistData = {
-    password: '',
-    mobile: '',
-    email: '',
-    nick_name: ''
-  };
+  const history = useHistory();
   const [loginForm] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const [registData, setRegistData] = useState(defaultRegistData);
 
-  const { loginUser, doSetlogin } = props;
-  console.log(props);
-  console.log(loginUser);
+  const { doSetlogin } = props;
 
   const doRegist = () => {
     setVisible(true);
@@ -53,7 +53,7 @@ const App: FC<ILoginProps> = (props) => {
       const res = await login(values);
       message.info(res.data.message);
       doSetlogin(res.data.data);
-      // history.push('/home');
+      history.push('/home');
     } catch (error) {
       message.error(error.message);
     }
@@ -71,7 +71,6 @@ const App: FC<ILoginProps> = (props) => {
     try {
       const res = await regist(registData);
       message.info(res.data.message);
-      console.log(res);
     } catch (error) {
       message.error(error.message);
     }
@@ -157,12 +156,12 @@ const App: FC<ILoginProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: StoreState): { loginUser: Object } => ({
-  loginUser: state
+const mapStateToProps = (state: StoreState): { loginUser: ILoginUser } => ({
+  loginUser: state.loginUser
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  doSetlogin: (data: Object) => dispatch(setlogin(data)),
+  doSetlogin: (data: ILoginUser) => dispatch(setlogin(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

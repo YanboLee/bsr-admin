@@ -2,6 +2,9 @@ export const baseInfo = [{
   label: '真实姓名',
   id: 'real_name'
 }, {
+  label: '手机号',
+  id: 'mobile'
+}, {
   label: '性别',
   id: 'gender'
 }, {
