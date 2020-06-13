@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useState, useEffect } from 'react';
 import {
-  Table, message
+  Table, Space, message
 } from 'antd';
 // import { useHistory } from 'react-router-dom';
 import { verifyList } from '@/lib/apis';
@@ -30,6 +30,16 @@ const columns = [
     dataIndex: 'recieveId',
     key: 'recieveId'
   },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text: any, record: { name: React.ReactNode; }) => (
+      <Space size="middle">
+        <a>Invite {record.name}</a>
+        <a>Delete</a>
+      </Space>
+    ),
+  },
 ];
 
 interface pageState {
@@ -54,8 +64,6 @@ const App: FC<ILoginProps> = (props) => {
         userId: loginUser.mobile
       });
       setData({ list: res.data.data });
-      console.log(data);
-      console.log(data);
     } catch (error) {
       message.error(error.message);
     }
