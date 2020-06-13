@@ -1,5 +1,5 @@
 import Member from '@/page/member';
-import Chart from '@/page/chart';
+import Audit from '@/page/audit';
 import Login from '@/page/login';
 import Home from '@/page/home';
 
@@ -9,8 +9,8 @@ const routes = [
     component: Member
   },
   {
-    path: '/chart',
-    component: Chart
+    path: '/audit',
+    component: Audit
   },
   {
     path: '/login',

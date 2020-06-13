@@ -11,13 +11,16 @@ export default class Verify extends app.Service {
    * @param name - your name
    */
   public async list(data) {
-    const result = await this.app.mysql.get('t_verify', {
+    const result = await this.app.mysql.select('t_verify', {where: {
       recieveId: data.userId
-    });
-    return {
-      result: 1,
-      message: 'success',
-      data: result
+    }});
+
+    if (result.length > 0) {
+      return {
+        result: 1,
+        message: 'ok',
+        data: result
+      }
     }
   }
 

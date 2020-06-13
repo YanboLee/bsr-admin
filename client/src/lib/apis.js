@@ -15,3 +15,7 @@ export const memberList = (param) => (
 export const memberCreate = (param) => (
   apiClient.post('/member/create', param)
 );
+
+export const verifyList = (params) => (
+  apiClient.get('/verify/list', { params })
+);

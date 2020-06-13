@@ -10,8 +10,8 @@ export default [
     icon: ''
   },
   {
-    path: '/chart',
-    name: 'Chart',
+    path: '/audit',
+    name: 'Audit',
     icon: ''
   },
   {
@@ -19,22 +19,4 @@ export default [
     name: 'Login',
     icon: ''
   },
-  {
-    path: '/parent',
-    name: 'Parent',
-    icon: '',
-    title: 'Parent',
-    children: [
-      {
-        path: '/child1',
-        name: 'child1',
-        icon: '',
-      },
-      {
-        path: '/child2',
-        name: 'child2',
-        icon: '',
-      },
-    ]
-  }
 ];

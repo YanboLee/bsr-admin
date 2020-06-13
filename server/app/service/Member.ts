@@ -11,9 +11,9 @@ export default class Member extends app.Service {
    */
   public async getMemberInfo(data) {
     const { mobile } = data;
-    const dbMember = await this.app.mysql.select('t_member', {
+    const dbMember = await this.app.mysql.select('t_member', {where: {
       mobile: mobile
-    });
+    }});
 
     if (dbMember.length > 0) {
       return {
