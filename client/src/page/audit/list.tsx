@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useState, useEffect } from 'react';
 import {
-  Table, Space, message
+  Table, Space, message, Modal
 } from 'antd';
 // import { useHistory } from 'react-router-dom';
 import { verifyList } from '@/lib/apis';
@@ -33,10 +33,10 @@ const columns = [
   {
     title: 'Action',
     key: 'action',
-    render: (text: any, record: { name: React.ReactNode; }) => (
+    render: () => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <a>accept</a>
+        <a>reject</a>
       </Space>
     ),
   },
@@ -57,6 +57,7 @@ const App: FC<ILoginProps> = (props) => {
     list: [],
   };
   const [data, setData] = useState(defaultData);
+  const [visible, setVisible] = useState(false);
 
   const getList = async () => {
     try {
@@ -72,9 +73,32 @@ const App: FC<ILoginProps> = (props) => {
     getList();
   }, []);
 
+  const rowClick = (event: any, record: any) => {
+    console.log(event, record);
+    setVisible(true);
+  };
+
+  const handleRegistCancel = () => {
+    setVisible(false);
+  };
+
   return (
     <div>
-      <Table columns={columns} dataSource={data.list} rowKey="id" />
+      <Table
+        columns={columns}
+        dataSource={data.list}
+        rowKey="id"
+        onRow={(record) => ({
+          onClick: (event) => {
+            rowClick(event, record);
+          }, // 点击行
+        })}
+      />
+      <Modal
+        title="Audit"
+        visible={visible}
+        onCancel={handleRegistCancel}
+      />
     </div>
   );
 };
