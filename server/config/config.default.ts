@@ -60,6 +60,7 @@ config.multipart = {
   fileExtensions: [ '.jpg','.png' ], // 扩展允许接收的文件后缀
 };
 
+config.proxy = true;
   // the return config will combines to EggAppConfig
   return {
     ...config,
