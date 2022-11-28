@@ -11,6 +11,7 @@ import ExportMember from '../../../app/service/Member';
 import ExportTest from '../../../app/service/Test';
 import ExportUsers from '../../../app/service/Users';
 import ExportVerify from '../../../app/service/Verify';
+import ExportActivity from '../../../app/service/activity';
 
 declare module 'egg' {
   interface IService {
@@ -19,5 +20,6 @@ declare module 'egg' {
     test: AutoInstanceType<typeof ExportTest>;
     users: AutoInstanceType<typeof ExportUsers>;
     verify: AutoInstanceType<typeof ExportVerify>;
+    activity: AutoInstanceType<typeof ExportActivity>;
   }
 }

@@ -14,4 +14,7 @@ export default (app: Application) => {
     // 队员信息
     .get('/member/list', controller.member.list)
     .post('/member/create', controller.member.insert)
+    //活动
+    .post('/common/uploadPic', controller.common.uploadPic)
+    .post('/activity/create', controller.activity.create)
 };

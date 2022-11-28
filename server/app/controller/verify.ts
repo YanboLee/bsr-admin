@@ -9,7 +9,7 @@ export default class VerifyController extends Controller {
 
   public async verify() {
     const { ctx } = this;
-    const req = ctx.request.query;
-    ctx.body = await ctx.service.verify.verify(req);
+    // const req = ctx.request.query;
+    ctx.body = await ctx.service.verify.verify();
   }
 }

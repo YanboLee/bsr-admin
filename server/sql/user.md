@@ -12,6 +12,23 @@ CREATE TABLE t_user(
   update_time   timestamp NULL default CURRENT_TIMESTAMP -- 修改时间默认值
 )
 
+## 活动表
+
+CREATE TABLE t_activity(
+  key_id VARCHAR(255) NOT NULL PRIMARY KEY,  -- id 统一命名为key_id
+  name VARCHAR(255) NOT NULL ,   -- 名称
+  type VARCHAR(255) NOT NULL ,  -- 类型
+  date VARCHAR(255) NOT NULL ,     -- 活动时间
+  address VARCHAR(255) NOT NULL , -- 地址
+  member VARCHAR(255) NOT NULL,  -- 参与人
+  summary VARCHAR(255) ,     -- 简介
+  picurl VARCHAR(255) ,     --  图片地址
+  filelist VARCHAR(255) ,     --  附件列表
+  status VARCHAR(255) NOT NULL,  -- 状态
+  create_time   timestamp NULL default CURRENT_TIMESTAMP, -- 创建时间默认值
+  update_time   timestamp NULL default CURRENT_TIMESTAMP -- 修改时间默认值
+)
+
 
 ## 队员表
 

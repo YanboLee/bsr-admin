@@ -33,20 +33,31 @@ config.security = {
 config.mysql = {
   client: {
       // host
-      host: 'localhost',
+      host: '123.56.105.19',
       // 端口号
       port: '3306',
       // 用户名
       user: 'root',
       // 密码
-      password: 'Admin@123',
+      password: 'root',
       // 数据库名
-      database: 'bsr_db',
+      database: 'tbsr_db',
   },
   // 是否加载到 app 上，默认开启
   app: true,
   // 是否加载到 agent 上，默认关闭
   agent: false,
+};
+
+config.bodyParser = {
+  jsonLimit: '10mb',
+  formLimit: '10mb',
+}
+
+config.multipart = {
+  mode: 'stream',
+  fileSize: '50mb',
+  fileExtensions: [ '.jpg','.png' ], // 扩展允许接收的文件后缀
 };
 
   // the return config will combines to EggAppConfig

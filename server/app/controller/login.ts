@@ -12,8 +12,8 @@ export default class LoginController extends Controller {
   // 登录
   public async login() {
     const { ctx } = this;
-    const req = ctx.request.body
-    ctx.body = await ctx.service.login.login(req);
+    // const req = ctx.request.body
+    ctx.body = await ctx.service.login.login();
   }
 
   // 登出
@@ -22,7 +22,7 @@ export default class LoginController extends Controller {
   // 忘记密码
   public async reset() {
     const { ctx } = this;
-    const req = ctx.request.query
-    ctx.body = await ctx.service.login.reset(req);
+    // const req = ctx.request.query
+    ctx.body = await ctx.service.login.reset();
   }
 }

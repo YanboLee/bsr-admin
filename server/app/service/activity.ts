@@ -1,4 +1,5 @@
 import * as app from 'egg';
+import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -27,17 +28,17 @@ export default class Member extends app.Service {
   /**
    * 获取队员信息
    */
-  public async insertMemberInfo() {
-    // data.status = 1;
-    // data.team_duty = 1;
-    // const result = await this.app.mysql.insert('t_member', data);
-    // const insertSuccess = result.affectedRows === 1;
+  public async insert(data) {
+    data.status = 1;
+    data.key_id = uuidv4()
+    const result = await this.app.mysql.insert('t_activity', data);
+    const insertSuccess = result.affectedRows === 1;
     
-    // if (insertSuccess) return {
-    //   result: 1,
-    //   message: 'ok',
-    //   data: ''
-    // }
+    if (insertSuccess) return {
+      result: 1,
+      message: 'ok',
+      data: ''
+    }
 
     return {
       result: 0,

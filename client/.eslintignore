@@ -1,4 +1,0 @@
-config/**/*.js
-scripts/**/*.js
-src/serviceWorker.ts
-src/setupTest.ts

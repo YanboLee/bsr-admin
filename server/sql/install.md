@@ -11,4 +11,4 @@ mysql.server start
 mysql_secure_installation
 
 ## 建库
-create database bsr_db character set utf8mb4;
+create database tbsr_db character set utf8mb4;

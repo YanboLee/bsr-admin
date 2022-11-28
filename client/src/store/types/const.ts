@@ -1,5 +1,0 @@
-export const SETLOGINUSER = 'SETLOGINUSER';
-export type SET_LOGINUSER = typeof SETLOGINUSER;
-
-export const CLEARLOGINUSER = 'CLEARLOGINUSER';
-export type CLEAR_LOGINUSER = typeof CLEARLOGINUSER;
