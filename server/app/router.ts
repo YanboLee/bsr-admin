@@ -2,7 +2,7 @@ import { Application } from 'egg';
 
 export default (app: Application) => {
   const { controller, router } = app;
-  router.get('/', controller.home.index)
+  router.get('/api-gateway', controller.home.index)
     // 登录
     .post('/regist', controller.login.regist)
     .post('/login', controller.login.login)
