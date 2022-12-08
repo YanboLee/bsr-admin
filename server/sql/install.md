@@ -1,5 +1,5 @@
 ## Mysql 3306.       
-root@localhost.  Admin@123
+root@localhost.  Iror1040..a
 
 ## 安装mysql
 brew install mysql

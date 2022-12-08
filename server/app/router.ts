@@ -18,4 +18,5 @@ export default (app: Application) => {
     //活动
     .post(baseUri + '/common/uploadPic', controller.common.uploadPic)
     .post(baseUri + '/activity/create', controller.activity.create)
+    .get(baseUri + '/activity/getList', controller.activity.getList)
 };

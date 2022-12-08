@@ -5,4 +5,9 @@ export default class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = await ctx.service.activity.insert(ctx.request.body);
   }
+  public async getList() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.activity.getList(ctx.request.query);
+  }
+  
 }

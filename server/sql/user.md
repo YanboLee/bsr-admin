@@ -18,7 +18,8 @@ CREATE TABLE t_activity(
   key_id VARCHAR(255) NOT NULL PRIMARY KEY,  -- id 统一命名为key_id
   name VARCHAR(255) NOT NULL ,   -- 名称
   type VARCHAR(255) NOT NULL ,  -- 类型
-  date VARCHAR(255) NOT NULL ,     -- 活动时间
+  begindate VARCHAR(255) NOT NULL ,     -- 活动时间
+  enddate VARCHAR(255) NOT NULL ,     -- 活动时间
   address VARCHAR(255) NOT NULL , -- 地址
   member VARCHAR(255) NOT NULL,  -- 参与人
   summary VARCHAR(255) ,     -- 简介

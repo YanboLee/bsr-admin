@@ -39,7 +39,7 @@ config.mysql = {
       // 用户名
       user: 'root',
       // 密码
-      password: 'root',
+      password: 'Iror1040..a',
       // 数据库名
       database: 'tbsr_db',
   },
